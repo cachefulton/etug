@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="cart_prototype">
+    
+    <xacro:include filename="inertial_macros.xacro"/>
+
+    <material name="white">
+        <color rgba="1 1 1 1" />
+    </material>
+
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1"/>
+    </material>
+
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <material name="red">
+        <color rgba="1 0 0 1"/>
+    </material>
+
+
+    <!-- <xacro:property name="wheel_width" value="0.0254" /> -->
+    <xacro:property name="body_height" value="0.4572" />
+    <xacro:property name="body_width" value="0.6096" />
+    <xacro:property name="body_length" value="0.6096" />
+    <xacro:property name="body_off_ground" value="0.05715" />
+    <xacro:property name="wheel_separation" value="0.5" />
+    <xacro:property name="wheel_radius" value="${body_off_ground}" />
+
+
+    <link name="base_link"></link>
+    
+    <joint name="body_joint" type="fixed">
+        <origin xyz="1.0 0.0 ${body_off_ground}"/>
+        <parent link="base_link"/>
+        <child link="body_link"/>
+    </joint>
+
+    <link name="body_link">
+        <visual>
+            <origin xyz="0.0 0.0 ${body_height/2}"/>
+            <geometry>
+                <box size="${body_length} ${body_width} ${body_height}"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 ${body_height/2}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${body_length} ${body_width} ${body_height}"/>
+            </geometry> 
+        </collision>
+        <xacro:inertial_box mass="1.15" x="${body_length}" y="${body_width}" z="${body_height}">
+            <origin xyz="0.0 0.0 ${body_height/2}" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <!-- wheels -->
+    <joint name="left_back_joint" type="fixed">
+        <parent link="body_link"/>
+        <child link="left_back_link"/>
+        <!-- <axis xyz="0 0 1"/> -->
+        <origin xyz="${wheel_separation/2} ${wheel_separation/2} 0"/> 
+        <dynamics friction="0.0"/>
+    </joint>
+
+
+    <link name="left_back_link">
+        <visual>
+            <geometry>
+                <sphere radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <sphere radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_sphere mass="0.05" radius="${wheel_radius}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_sphere>
+    </link>
+
+    <joint name="right_back_joint" type="fixed">
+        <parent link="body_link"/>
+        <child link="right_back_link"/>
+        <!-- <axis xyz="0 0 1"/> -->
+        <origin xyz="-${wheel_separation/2} -${wheel_separation/2} 0"/> 
+        <dynamics friction="0.0"/>
+    </joint>
+
+
+    <link name="right_back_link">
+        <visual>
+            <geometry>
+                <sphere radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <sphere radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_sphere mass="0.05" radius="${wheel_radius}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_sphere>
+    </link>
+
+    <joint name="left_front_joint" type="fixed">
+        <parent link="body_link"/>
+        <child link="left_front_link"/>
+        <!-- <axis xyz="0 0 1"/> -->
+        <origin xyz="-${wheel_separation/2} ${wheel_separation/2} 0"/> 
+        <dynamics friction="0.0"/>
+    </joint>
+
+
+    <link name="left_front_link">
+        <visual>
+            <geometry>
+                <sphere radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <sphere radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_sphere mass="0.05" radius="${wheel_radius}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_sphere>
+    </link>
+
+    <joint name="right_front_joint" type="fixed">
+        <parent link="body_link"/>
+        <child link="right_front_link"/>
+        <!-- <axis xyz="0 0 1"/> -->
+        <origin xyz="${wheel_separation/2} -${wheel_separation/2} 0"/> 
+        <dynamics friction="0.0"/>
+    </joint>
+
+
+    <link name="right_front_link">
+        <visual>
+            <geometry>
+                <sphere radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <sphere radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_sphere mass="0.05" radius="${wheel_radius}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_sphere>
+    </link>
+</robot>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
-
-    <!-- Example link -->
-    <link name="base_link"></link>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="cart_prototype">
+    
+    <xacro:include filename="cart_core.xacro"/>
 
 </robot>
+
